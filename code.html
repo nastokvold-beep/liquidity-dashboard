@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Liquidity Budget Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        tr:not(:first-child) td.editable-cell:hover .copy-icon {
+           opacity: 1;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13a4ec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 md:px-10 lg:px-20 xl:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-full flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-gray-200 dark:border-b-gray-700 px-10 py-3">
+<div class="flex items-center gap-4 text-gray-800 dark:text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Liquidity Budget</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal" href="#">Dashboard</a>
+<a class="text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal" href="#">Reports</a>
+<a class="text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal" href="#">Settings</a>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Export</span>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+<span class="material-symbols-outlined text-base">info</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCCtKTAiTQfn78ab5kVxFkDf7f20zdpATnHuvlqeYc0nFFlVOjVeTPV45mAhwturEK_gK-Drve53NATJWt1dfT56X5mgUKXOq7CnrniV5PuMm175UXj_3p-BKTgKa7U9DF3jv3Ge4S6S1_0buuzLHoQVOHrHMtVob0VsrucGwb0cr7zWfYVuA3WoUyxu_edNsn8hw8lNWlrxI0F6md7xvSbTS9QVLKgpBkZ-2lLvnFykJKo2S7R2lc4xLMkQU9Na4AYtOnSLUfyk2k");'></div>
+</div>
+</header>
+<main class="flex-1 p-4 md:p-6 lg:p-8">
+<div class="flex flex-wrap justify-between gap-4 items-center mb-6">
+<div class="flex min-w-72 flex-col gap-1">
+<p class="text-gray-900 dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]">Liquidity Budget Dashboard</p>
+<p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">Budget for 2024</p>
+</div>
+<div class="flex gap-3 overflow-x-auto">
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-gray-100 dark:bg-gray-800 px-3">
+<span class="material-symbols-outlined text-gray-700 dark:text-gray-300 text-base">calendar_today</span>
+<p class="text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal">2024</p>
+<span class="material-symbols-outlined text-gray-700 dark:text-gray-300 text-base">arrow_drop_down</span>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-gray-100 dark:bg-gray-800 px-3">
+<p class="text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal">Monthly</p>
+<span class="material-symbols-outlined text-gray-700 dark:text-gray-300 text-base">arrow_drop_down</span>
+</button>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm mb-8">
+<p class="text-gray-800 dark:text-white text-lg font-bold leading-normal mb-4">Ending Balance Trend</p>
+<div class="flex min-h-[220px] flex-1 flex-col gap-8 py-4">
+<div class="flex-1">
+<div class="grid h-full grid-cols-12 items-end gap-4">
+<div class="flex flex-col items-center gap-2"><div class="h-[52px] w-full rounded bg-primary"></div></div>
+<div class="flex flex-col items-center gap-2"><div class="h-[63px] w-full rounded bg-primary"></div></div>
+<div class="flex flex-col items-center gap-2"><div class="h-[76px] w-full rounded bg-primary"></div></div>
+<div class="flex flex-col items-center gap-2"><div class="h-[89px] w-full rounded bg-primary"></div></div>
+<div class="flex flex-col items-center gap-2"><div class="h-[101px] w-full rounded bg-primary"></div></div>
+<div class="flex flex-col items-center gap-2"><div class="h-[113px] w-full rounded bg-primary"></div></div>
+<div class="flex flex-col items-center gap-2"><div class="h-[125px] w-full rounded bg-primary"></div></div>
+<div class="flex flex-col items-center gap-2"><div class="h-[136px] w-full rounded bg-primary"></div></div>
+<div class="flex flex-col items-center gap-2"><div class="h-[148px] w-full rounded bg-primary"></div></div>
+<div class="flex flex-col items-center gap-2"><div class="h-[160px] w-full rounded bg-primary"></div></div>
+<div class="flex flex-col items-center gap-2"><div class="h-[173px] w-full rounded bg-primary"></div></div>
+<div class="flex flex-col items-center gap-2"><div class="h-[184px] w-full rounded bg-primary"></div></div>
+</div>
+</div>
+<div class="flex justify-around">
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wider">Jan</p>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wider">Feb</p>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wider">Mar</p>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wider">Apr</p>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wider">May</p>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wider">Jun</p>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wider">Jul</p>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wider">Aug</p>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wider">Sep</p>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wider">Oct</p>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wider">Nov</p>
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wider">Dec</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="flex flex-col gap-2 p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm">
+<p class="text-gray-600 dark:text-gray-400 text-base font-medium leading-normal">Total Annual Income</p>
+<p class="text-gray-900 dark:text-white tracking-light text-3xl font-bold leading-tight truncate">$1,540,500</p>
+<div class="flex gap-1 items-center">
+<p class="text-green-600 dark:text-green-400 text-sm font-medium leading-normal">+12.5% vs LY</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm">
+<p class="text-gray-600 dark:text-gray-400 text-base font-medium leading-normal">Total Annual Expenses</p>
+<p class="text-gray-900 dark:text-white tracking-light text-3xl font-bold leading-tight truncate">$235,950</p>
+<div class="flex gap-1 items-center">
+<p class="text-red-500 dark:text-red-400 text-sm font-medium leading-normal">+5.2% vs LY</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm">
+<p class="text-gray-600 dark:text-gray-400 text-base font-medium leading-normal">Net Annual Balance</p>
+<p class="text-gray-900 dark:text-white tracking-light text-3xl font-bold leading-tight truncate">$1,304,550</p>
+<div class="flex gap-1 items-center">
+<p class="text-green-600 dark:text-green-400 text-sm font-medium leading-normal">Healthy</p>
+</div>
+</div>
+</div>
+<div class="w-full overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+<table class="w-full min-w-[1200px] divide-y divide-gray-200 dark:divide-gray-700">
+<thead class="bg-gray-50 dark:bg-gray-800">
+<tr>
+<th class="sticky left-0 bg-gray-50 dark:bg-gray-800 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-[200px]" scope="col">Category</th>
+<th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider" scope="col">Jan</th>
+<th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider" scope="col">Feb</th>
+<th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider" scope="col">Mar</th>
+<th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider" scope="col">Apr</th>
+<th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider" scope="col">May</th>
+<th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider" scope="col">Jun</th>
+<th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider" scope="col">Jul</th>
+<th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider" scope="col">Aug</th>
+<th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider" scope="col">Sep</th>
+<th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider" scope="col">Oct</th>
+<th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider" scope="col">Nov</th>
+<th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider" scope="col">Dec</th>
+</tr>
+</thead>
+<tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
+<tr class="bg-white dark:bg-gray-900">
+<td class="sticky left-0 bg-white dark:bg-gray-900 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Starting Balance</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right"><input class="w-24 bg-transparent border-0 text-right p-0" type="text" value="$50,000"/></td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right"><input class="w-24 bg-transparent border-0 text-right p-0" type="text" value="$60,000"/></td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right"><input class="w-24 bg-transparent border-0 text-right p-0" type="text" value="$70,000"/></td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right"><input class="w-24 bg-transparent border-0 text-right p-0" type="text" value="$80,000"/></td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right"><input class="w-24 bg-transparent border-0 text-right p-0" type="text" value="$90,000"/></td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right"><input class="w-24 bg-transparent border-0 text-right p-0" type="text" value="$100,000"/></td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right"><input class="w-24 bg-transparent border-0 text-right p-0" type="text" value="$110,000"/></td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right"><input class="w-24 bg-transparent border-0 text-right p-0" type="text" value="$120,000"/></td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right"><input class="w-24 bg-transparent border-0 text-right p-0" type="text" value="$130,000"/></td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right"><input class="w-24 bg-transparent border-0 text-right p-0" type="text" value="$140,000"/></td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right"><input class="w-24 bg-transparent border-0 text-right p-0" type="text" value="$150,000"/></td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right"><input class="w-24 bg-transparent border-0 text-right p-0" type="text" value="$160,000"/></td>
+</tr>
+<tr class="bg-gray-50/50 dark:bg-gray-800/50">
+<td class="sticky left-0 bg-gray-50/50 dark:bg-gray-800/50 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Income from Sales</td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$20,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$22,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$25,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$28,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$30,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$32,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$34,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$35,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$38,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$40,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$42,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$45,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+</tr>
+<tr class="bg-white dark:bg-gray-900">
+<td class="sticky left-0 bg-white dark:bg-gray-900 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Other Income</td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,500"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,200"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,800"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$2,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$2,500"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,500"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$2,200"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,800"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$2,500"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$2,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+</tr>
+<tr class="bg-gray-50/50 dark:bg-gray-800/50">
+<td class="sticky left-0 bg-gray-50/50 dark:bg-gray-800/50 px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400">Total Income</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400 text-right">$21,000</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400 text-right">$23,500</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400 text-right">$26,200</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400 text-right">$29,800</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400 text-right">$32,000</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400 text-right">$34,500</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400 text-right">$35,500</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400 text-right">$37,200</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400 text-right">$39,800</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400 text-right">$42,500</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400 text-right">$45,000</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-600 dark:text-green-400 text-right">$47,000</td>
+</tr>
+<tr class="h-4 bg-gray-100 dark:bg-gray-800"><td colspan="13"></td></tr>
+<tr class="bg-white dark:bg-gray-900">
+<td class="sticky left-0 bg-white dark:bg-gray-900 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Rent</td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$5,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$5,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$5,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$5,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$5,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$5,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$5,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$5,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$5,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$5,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$5,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$5,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+</tr>
+<tr class="bg-gray-50/50 dark:bg-gray-800/50">
+<td class="sticky left-0 bg-gray-50/50 dark:bg-gray-800/50 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Salaries</td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$8,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$8,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$8,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$8,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$8,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$8,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$8,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$8,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$8,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$8,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$8,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$8,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+</tr>
+<tr class="bg-white dark:bg-gray-900">
+<td class="sticky left-0 bg-white dark:bg-gray-900 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Utilities</td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,100"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,050"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,150"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,200"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,250"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,300"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,350"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,400"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,450"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,500"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$1,550"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+</tr>
+<tr class="bg-gray-50/50 dark:bg-gray-800/50">
+<td class="sticky left-0 bg-gray-50/50 dark:bg-gray-800/50 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Marketing</td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$2,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$2,500"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$2,200"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$2,800"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,500"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,200"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,800"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$4,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$4,200"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$4,500"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$5,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+</tr>
+<tr class="bg-white dark:bg-gray-900">
+<td class="sticky left-0 bg-white dark:bg-gray-900 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Loan Payments</td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+<td class="editable-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-right relative"><input class="w-24 bg-transparent border-0 text-right p-0 pr-5" type="text" value="$3,000"/><span class="material-symbols-outlined copy-icon opacity-0 transition-opacity absolute right-1 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 dark:text-gray-500 text-sm">content_copy</span></td>
+</tr>
+<tr class="bg-gray-50/50 dark:bg-gray-800/50">
+<td class="sticky left-0 bg-gray-50/50 dark:bg-gray-800/50 px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400">Total Expenses</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400 text-right">$19,000</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400 text-right">$19,600</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400 text-right">$19,250</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400 text-right">$19,950</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400 text-right">$20,200</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400 text-right">$20,750</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400 text-right">$20,500</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400 text-right">$21,150</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400 text-right">$21,400</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400 text-right">$21,650</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400 text-right">$22,000</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400 text-right">$22,550</td>
+</tr>
+<tr class="bg-blue-50 dark:bg-blue-900/20 font-bold">
+<td class="sticky left-0 bg-blue-50 dark:bg-blue-900/20 px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">Ending Balance</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right">$52,000</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right">$63,900</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right">$76,950</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right">$89,850</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right">$101,800</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right">$113,750</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right">$125,000</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right">$136,050</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right">$148,400</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right">$160,850</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right">$173,000</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white text-right">$184,450</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+</div>
+</div>
+</div>
+</div>
+</body></html>
