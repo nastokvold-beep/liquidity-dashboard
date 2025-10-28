@@ -36,6 +36,11 @@
             },
         }
     </script>
+<style>
+  table {
+    margin-bottom: 1rem; /* gir litt luft under tabellen */
+  }
+</style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display">
 <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
@@ -339,6 +344,12 @@
 </tr>
 </tbody>
 </table>
+        //Add button for Add-Row
+<div class="flex justify-end mt-4">
+  <button id="addRow" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+    ➕ Add Row
+  </button>
+</div>
 </div>
 </main>
 </div>
@@ -381,6 +392,26 @@
         endingCell.innerText = `$${(start + incomeSum - expenseSum).toLocaleString()}`;
       }
     }
+  });
+</script>
+<script>
+  // === FUNKSJON: legg til ny rad i tabellen ===
+  const addRowBtn = document.getElementById("addRow");
+  const tableBody = document.querySelector("tbody");
+
+  addRowBtn.addEventListener("click", () => {
+    // Finn siste rad som mal
+    const lastRow = tableBody.lastElementChild;
+    if (!lastRow) return;
+
+    // Klon raden og tøm verdier
+    const newRow = lastRow.cloneNode(true);
+    newRow.querySelectorAll("input").forEach(inp => inp.value = "");
+    tableBody.appendChild(newRow);
+
+    // Sørg for at summering oppdateres for nye rader også
+    const event = new Event("input");
+    document.dispatchEvent(event);
   });
 </script>
 </body>
