@@ -346,5 +346,42 @@
 </div>
 </div>
 <script src="app.js"></script>
+<script>
+  document.addEventListener("input", () => {
+    const rows = Array.from(document.querySelectorAll("tbody tr"));
+    const incomeRows = rows.filter(r => r.children[0].innerText.includes("Income"));
+    const expenseRows = rows.filter(r => 
+      ["Rent", "Salaries", "Utilities", "Marketing", "Loan Payments"].some(label => 
+        r.children[0].innerText.includes(label)
+      )
+    );
+
+    // Summerer tallene i kolonnene
+    const months = 12;
+    for (let i = 1; i <= months; i++) {
+      const incomeSum = incomeRows.reduce((sum, row) => {
+        const val = row.children[i].querySelector("input")?.value.replace(/[$,]/g, "") || 0;
+        return sum + parseFloat(val);
+      }, 0);
+      const expenseSum = expenseRows.reduce((sum, row) => {
+        const val = row.children[i].querySelector("input")?.value.replace(/[$,]/g, "") || 0;
+        return sum + parseFloat(val);
+      }, 0);
+      const totalIncomeCell = document.querySelectorAll("tr td.text-green-600")[i - 1];
+      const totalExpenseCell = document.querySelectorAll("tr td.text-red-600")[i - 1];
+      const endingCell = document.querySelectorAll("tr.bg-blue-50 td.text-right")[i - 1];
+
+      if (totalIncomeCell) totalIncomeCell.innerText = `$${incomeSum.toLocaleString()}`;
+      if (totalExpenseCell) totalExpenseCell.innerText = `$${expenseSum.toLocaleString()}`;
+
+      if (endingCell) {
+        const start = parseFloat(
+          document.querySelectorAll("tr td input")[i - 1]?.value.replace(/[$,]/g, "") || 0
+        );
+        endingCell.innerText = `$${(start + incomeSum - expenseSum).toLocaleString()}`;
+      }
+    }
+  });
+</script>
 </body>
 </html>
