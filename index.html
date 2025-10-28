@@ -431,25 +431,5 @@
     }
   });
 </script>
-<script>
-  // === FUNKSJON: legg til ny rad i tabellen ===
-  const addRowBtn = document.getElementById("addRow");
-  const tableBody = document.querySelector("tbody");
-
-  addRowBtn.addEventListener("click", () => {
-    // Finn siste rad som mal
-    const lastRow = tableBody.lastElementChild;
-    if (!lastRow) return;
-
-    // Klon raden og tøm verdier
-    const newRow = lastRow.cloneNode(true);
-    newRow.querySelectorAll("input").forEach(inp => inp.value = "");
-    tableBody.appendChild(newRow);
-
-    // Sørg for at summering oppdateres for nye rader også
-    const event = new Event("input");
-    document.dispatchEvent(event);
-  });
-</script>
 </body>
 </html>
